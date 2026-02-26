@@ -1,3 +1,5 @@
+# DockerProjet
+
 # Documentation du Projet E-Commerce Microservices
 
 ## Table des Matières
@@ -63,6 +65,7 @@ Le projet est structuré autour d'une architecture microservices, permettant de 
 - **Intégration Continue** : Utilisation de GitLab CI/CD avec des runners Docker internes à l'entreprise.
 
 - Les machines du projets utilisées sont toutes des **debian 12**, veuillez prendre en compte cette information que ce soit ou un déploiement local ou pour votre future pipeline :)
+
 ### Microservices
 
 1. **Auth Service** : Gère l'inscription, la connexion, la gestion des profils utilisateurs et l'authentification via JWT.
@@ -326,7 +329,8 @@ Le déploiement manuel consiste à exécuter directement les services sur votre 
 - Assurez-vous que MongoDB est installé et en cours d'exécution sur votre machine.
 - Configurez les variables d'environnement nécessaires dans des fichiers `.env` situés dans chaque répertoire de service.
 - PM2 offre des fonctionnalités de surveillance, de gestion des logs et de redémarrage automatique.
-- Exemple avec SSH : 
+- Exemple avec SSH :
+
 ```bash
 sync -avz --delete --exclude '.git' -e "ssh -o StrictHostKeyChecking=no" ./ root@192.168.1.108:/opt/e-commerce
 ```
@@ -338,7 +342,6 @@ Le projet utilise Docker pour conteneuriser les services et le frontend, et Dock
 #### Environnement de Développement
 
 1. **Prérequis** :
-
    - **Docker** et **Docker Compose** installés sur votre machine.
    - **Git** pour cloner le dépôt du projet.
 
@@ -362,7 +365,6 @@ Le projet utilise Docker pour conteneuriser les services et le frontend, et Dock
    ```
 
 5. **Accès à l'Application** :
-
    - Ouvrez votre navigateur et accédez à `http://localhost:8080`.
 
 #### Environnement de Production avec Docker Swarm
@@ -370,7 +372,6 @@ Le projet utilise Docker pour conteneuriser les services et le frontend, et Dock
 Pour le déploiement en production, le fichier `docker-compose.prod.yml` est utilisé avec Docker Swarm.
 
 1. **Prérequis** :
-
    - **Docker** installé sur le serveur de production.
    - Accès SSH au serveur.
 
@@ -393,7 +394,6 @@ Pour le déploiement en production, le fichier `docker-compose.prod.yml` est uti
    ```
 
 5. **Accès à l'Application** :
-
    - Accédez à l'adresse IP ou au domaine de votre serveur suivi du port approprié (par exemple, `http://192.168.1.108:8080`).
 
 **Remarques :**
@@ -415,6 +415,7 @@ Le répertoire **`scripts/`** contient plusieurs scripts pour faciliter le dépl
 - **`tests.notes`** : Contient des notes ou des instructions supplémentaires liées aux tests.
 
 **Exemples d'utilisation :**
+
 - **Mise en place initiale sur le serveur de dev** :
 
   ```bash
@@ -568,9 +569,12 @@ Pour faciliter les tests des différentes APIs de votre application, voici une s
   ```
 
 ```json
-{"message":"Utilisateur créé avec succès","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzNiNmIyYzAyNTJmZDViZmU5OTdkYWMiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3MzE5NDczMDgsImV4cCI6MTczMjAzMzcwOH0.Zcbj4jVTY0Ma3z-pCKl_bGiXbqT8aSFghE2MQBkCmXo","userId":"673b6b2c0252fd5bfe997dac"}
+{
+  "message": "Utilisateur créé avec succès",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzNiNmIyYzAyNTJmZDViZmU5OTdkYWMiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3MzE5NDczMDgsImV4cCI6MTczMjAzMzcwOH0.Zcbj4jVTY0Ma3z-pCKl_bGiXbqT8aSFghE2MQBkCmXo",
+  "userId": "673b6b2c0252fd5bfe997dac"
+}
 ```
-
 
 - **Connexion d'un Utilisateur**
 
@@ -581,9 +585,12 @@ Pour faciliter les tests des différentes APIs de votre application, voici une s
   ```
 
 ```json
-{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzNiNmIyYzAyNTJmZDViZmU5OTdkYWMiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3MzE5NDczNDYsImV4cCI6MTczMjAzMzc0Nn0.RcwtvVyp6gw15Zs8addBS25FzuqpqZmxp7OqwglFBG4","userId":"673b6b2c0252fd5bfe997dac","email":"user@example.com"}
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzNiNmIyYzAyNTJmZDViZmU5OTdkYWMiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3MzE5NDczNDYsImV4cCI6MTczMjAzMzc0Nn0.RcwtvVyp6gw15Zs8addBS25FzuqpqZmxp7OqwglFBG4",
+  "userId": "673b6b2c0252fd5bfe997dac",
+  "email": "user@example.com"
+}
 ```
-
 
 - **Récupération du Profil Utilisateur**
 
@@ -593,7 +600,12 @@ Pour faciliter les tests des différentes APIs de votre application, voici une s
   ```
 
 ```json
-{"_id":"673b6b2c0252fd5bfe997dac","email":"user@example.com","createdAt":"2024-11-18T16:28:28.239Z","__v":0}
+{
+  "_id": "673b6b2c0252fd5bfe997dac",
+  "email": "user@example.com",
+  "createdAt": "2024-11-18T16:28:28.239Z",
+  "__v": 0
+}
 ```
 
 #### Product Service
@@ -608,7 +620,6 @@ Pour faciliter les tests des différentes APIs de votre application, voici une s
 [{"_id":"673b6ba048c194f02ade2aac","name":"Smartphone Galaxy S21","price":899,"description":"Dernier smartphone Samsung avec appareil photo 108MP","stock":15,"createdAt":"2024-11-18T16:30:24.472Z","__v":0},{"_id":"673b6ba048c194f02ade2aae","name":"MacBook Pro M1","price":1299,"description":"Ordinateur portable Apple avec puce M1","stock":10,"createdAt":"2024-11-18T16:30:24.489Z","__v":0},{"_id":"673b6ba048c194f02ade2ab0","name":"PS5","price":499,"description":"Console de jeu dernière génération","stock":5,"createdAt":"2024-11-18T16:30:24.498Z","__v":0},{"_id":"673b6ba048c194f02ade2ab2","name":"Écouteurs AirPods Pro","price":249,"description":"Écouteurs sans fil avec réduction de bruit","stock":20,"createdAt":"2024-11-18T16:30:24.506Z","__v":0},{"_id":"673b6ba048c194f02ade2ab4","name":"Nintendo Switch","price":299,"description":"Console de jeu portable","stock":12,"createdAt":"2024-11-18T16:30:24.516Z","__v":0},{"_id":"673b6ba048c194f02ade2ab6","name":"iPad Air","price":599,"description":"Tablette Apple avec écran Retina","stock":8,"createdAt":"2024-11-18T16:30:24.526Z","__v":0},{"_id":"673b6ba048c194f02ade2ab8","name":"Montre connectée","price":199,"description":"Montre intelligente avec suivi d'activité","stock":25,"createdAt":"2024-11-18T16:30:24.535Z","__v":0},{"_id":"673b6ba048c194f02ade2aba","name":"Enceinte Bluetooth","price":79,"description":"Enceinte portable waterproof","stock":30,"createdAt":"2024-11-18T16:30:24.544Z","__v":0}]1
 ```
 
-
 - **Ajout d'un Produit au Panier**
 
 ```bash
@@ -619,18 +630,36 @@ curl -X POST http://localhost:3000/api/cart/add \
     "userId": "673b6b2c0252fd5bfe997dac",
     "productId": "673b6ba048c194f02ade2aba",
     "quantity": 2
-  }'  
+  }'
 ```
 
-
 ```json
-{"userId":"673b6b2c0252fd5bfe997dac","items":[{"productId":{"_id":"673b6ba048c194f02ade2aba","name":"Enceinte Bluetooth","price":79,"description":"Enceinte portable waterproof","stock":30,"createdAt":"2024-11-18T16:30:24.544Z","__v":0},"quantity":1,"_id":"673b6f7f48c194f02ade2ad0"}],"_id":"673b6f7f48c194f02ade2acf","updatedAt":"2024-11-18T16:46:55.284Z","__v":0}
+{
+  "userId": "673b6b2c0252fd5bfe997dac",
+  "items": [
+    {
+      "productId": {
+        "_id": "673b6ba048c194f02ade2aba",
+        "name": "Enceinte Bluetooth",
+        "price": 79,
+        "description": "Enceinte portable waterproof",
+        "stock": 30,
+        "createdAt": "2024-11-18T16:30:24.544Z",
+        "__v": 0
+      },
+      "quantity": 1,
+      "_id": "673b6f7f48c194f02ade2ad0"
+    }
+  ],
+  "_id": "673b6f7f48c194f02ade2acf",
+  "updatedAt": "2024-11-18T16:46:55.284Z",
+  "__v": 0
+}
 ```
 
 #### Order Service
 
 - **Passation d'une Commande**
-
 
 ```bash
 curl -X POST http://localhost:3002/api/orders \
@@ -649,11 +678,30 @@ curl -X POST http://localhost:3002/api/orders \
   }'
 ```
 
-
 ```json
-{"userId":"673b6b2c0252fd5bfe997dac","products":[{"productId":"673b6ba048c194f02ade2aba","name":"Enceinte Bluetooth","price":79,"quantity":1,"_id":"673b70050a40d45c0f920818"}],"totalAmount":79,"status":"pending","shippingAddress":{"street":"123 Test St","city":"Test City","postalCode":"12345"},"_id":"673b70050a40d45c0f920817","createdAt":"2024-11-18T16:49:09.281Z","__v":0}
+{
+  "userId": "673b6b2c0252fd5bfe997dac",
+  "products": [
+    {
+      "productId": "673b6ba048c194f02ade2aba",
+      "name": "Enceinte Bluetooth",
+      "price": 79,
+      "quantity": 1,
+      "_id": "673b70050a40d45c0f920818"
+    }
+  ],
+  "totalAmount": 79,
+  "status": "pending",
+  "shippingAddress": {
+    "street": "123 Test St",
+    "city": "Test City",
+    "postalCode": "12345"
+  },
+  "_id": "673b70050a40d45c0f920817",
+  "createdAt": "2024-11-18T16:49:09.281Z",
+  "__v": 0
+}
 ```
-
 
 - **Consultation de l'Historique des Commandes**
 
@@ -663,7 +711,30 @@ curl -X POST http://localhost:3002/api/orders \
 ```
 
 ```json
-[{"shippingAddress":{"street":"123 Test St","city":"Test City","postalCode":"12345"},"_id":"673b70050a40d45c0f920817","userId":"673b6b2c0252fd5bfe997dac","products":[{"productId":"673b6ba048c194f02ade2aba","name":"Enceinte Bluetooth","price":79,"quantity":1,"_id":"673b70050a40d45c0f920818"}],"totalAmount":79,"status":"pending","createdAt":"2024-11-18T16:49:09.281Z","__v":0}]
+[
+  {
+    "shippingAddress": {
+      "street": "123 Test St",
+      "city": "Test City",
+      "postalCode": "12345"
+    },
+    "_id": "673b70050a40d45c0f920817",
+    "userId": "673b6b2c0252fd5bfe997dac",
+    "products": [
+      {
+        "productId": "673b6ba048c194f02ade2aba",
+        "name": "Enceinte Bluetooth",
+        "price": 79,
+        "quantity": 1,
+        "_id": "673b70050a40d45c0f920818"
+      }
+    ],
+    "totalAmount": 79,
+    "status": "pending",
+    "createdAt": "2024-11-18T16:49:09.281Z",
+    "__v": 0
+  }
+]
 ```
 
 ---
@@ -673,7 +744,6 @@ curl -X POST http://localhost:3002/api/orders \
 ### Déploiement Manuel avec PM2 pour la Pré-production
 
 1. **Prérequis** :
-
    - **Node.js** et **npm** installés sur votre machine.
    - **MongoDB** installé et en cours d'exécution localement.
    - **Git** pour cloner le dépôt.
@@ -699,13 +769,11 @@ curl -X POST http://localhost:3002/api/orders \
    ```
 
 5. **Accès à l'Application** :
-
    - Ouvrez votre navigateur et accédez à `http://localhost:8080`.
 
 ### Déploiement avec Docker et Docker Compose
 
 1. **Prérequis** :
-
    - **Docker** et **Docker Compose** installés sur votre machine.
    - **Git** pour cloner le dépôt.
 
@@ -729,13 +797,11 @@ curl -X POST http://localhost:3002/api/orders \
    ```
 
 5. **Accès à l'Application** :
-
    - Ouvrez votre navigateur et accédez à `http://localhost:8080`.
 
 ### Déploiement en Production avec Docker Swarm
 
 1. **Prérequis** :
-
    - **Docker** installé sur le serveur de production.
    - Accès SSH au serveur.
 
@@ -758,20 +824,16 @@ curl -X POST http://localhost:3002/api/orders \
    ```
 
 5. **Accès à l'Application** :
-
    - Accédez à l'adresse IP ou au domaine de votre serveur suivi du port approprié.
 
 ### Automatisation avec GitLab CI/CD
 
 1. **Configuration des Pipelines CI/CD** :
-
    - Les pipelines sont définis dans les fichiers `build-*.yml` situés dans chaque répertoire de service.
    - Assurez-vous que les variables CI/CD sont correctement configurées dans GitLab.
 
 2. **Déclencher les Pipelines** :
-
    - Les pipelines sont déclenchés automatiquement lors des commits sur les branches `develop` et `main`.
 
 3. **Surveillance des Pipelines** :
-
    - Utilisez l'interface GitLab pour surveiller l'exécution des pipelines, vérifier les rapports de sécurité et consulter les résultats des tests.
