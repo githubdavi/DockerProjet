@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_AUTH_SERVICE_URL || '/api/auth';
-
+const API_BASE_URL = import.meta.env.VITE_AUTH_SERVICE_URL || 'http://localhost:3001';
 const authService = axios.create({
   baseURL: API_BASE_URL,
 });
