@@ -29,16 +29,11 @@ export const cartService = {
     return response.data;
   },
 
-  async removeFromCart(productId) {
+  async removeFromCart(productId, headers) {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
-    const response = await axios.delete(`${API_URL}/cart/remove/${productId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        userId: userId,
-      },
-    });
+    const response = await axios.delete(`${API_URL}/cart/remove/${productId}`, headers);
     return response.data;
   },
 };

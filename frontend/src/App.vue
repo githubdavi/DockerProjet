@@ -108,7 +108,7 @@ export default {
       try {
         const token = localStorage.getItem("token");
         const userId = localStorage.getItem("userId");
-        await axios.delete(`/api/cart/remove/${productId}`, {
+        await cartService.removeFromCart(productId, {
           headers: {
             Authorization: `Bearer ${token}`,
             userId: userId,
