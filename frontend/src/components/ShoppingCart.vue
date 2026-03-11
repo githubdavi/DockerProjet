@@ -71,6 +71,7 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import { orderService } from '../services/orderService';
 
 export default {
   name: 'ShoppingCart',
@@ -136,7 +137,7 @@ export default {
           shippingAddress: shippingAddress.value,
         };
 
-        await axios.post('/api/orders', orderData, {
+        await orderService.createOrder(orderData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

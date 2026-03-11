@@ -15,13 +15,9 @@ export const orderService = {
   },
 
   // Créer une nouvelle commande
-  createOrder: async (orderData) => {
+  createOrder: async (orderData, headers) => {
     const token = localStorage.getItem("token");
-    const response = await axios.post(`${API_URL}`, orderData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.post(`${API_URL}`, orderData, headers);
     return response.data;
   },
 
