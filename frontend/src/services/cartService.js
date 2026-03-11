@@ -17,18 +17,14 @@ export const cartService = {
     return response.data;
   },
 
-  async addToCart(productId) {
+  async addToCart(productId, headers) {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
     const response = await axios.post(
-      "/api/cart/add",
+      `${API_URL}/cart/add`,
       { userId, productId },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
+      headers
     );
     return response.data;
   },
@@ -37,7 +33,7 @@ export const cartService = {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
-    const response = await axios.delete(`/api/cart/remove/${productId}`, {
+    const response = await axios.delete(`${API_URL}/cart/remove/${productId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         userId: userId,

@@ -86,12 +86,8 @@ export default {
 
         console.log("Adding to cart:", product); // Debug log
 
-        await axios.post(
-          "/api/cart/add",
-          {
-            userId,
-            productId: product._id,
-          },
+        await cartService.addToCart(
+            product._id,
           {
             headers: {
               Authorization: `Bearer ${token}`,
