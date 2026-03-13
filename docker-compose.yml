@@ -1,0 +1,59 @@
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    env_file:
+      - ./frontend/.env
+    ports:
+      - "8080:80"
+    depends_on:
+      - auth-service
+      - product-service
+
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ./services/auth-service
+      dockerfile: Dockerfile
+    env_file:
+      - ./services/auth-service/.env
+    ports:
+      - "3001:3001"
+
+  # order-service:
+  #   container_name: order-service
+  #   build:
+  #     context: ./services/order-service
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - ./services/order-service/.env
+  #   depends_on:
+  #     - mongo
+  #   ports:
+  #     - "3002:3002"
+
+  product-service:
+    container_name: product-service
+    build:
+      context: ./services/product-service
+      dockerfile: Dockerfile
+    env_file:
+      - ./services/product-service/.env
+    depends_on:
+      - mongo
+    ports:
+      - "3000:3000"
+
+  mongo:
+    container_name: mongo
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    env_file:
+      - .env
+volumes:
+  mongo-data:
