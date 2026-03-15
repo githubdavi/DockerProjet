@@ -15,7 +15,10 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.use(cors({
-  origin: 'http://localhost:8080', // Remplacez par l'URL exacte du frontend
+  origin: process.env.VITE_FRONTEND_URL, // Remplacez par l'URL exacte du frontend // Tester à ce niveau pour voir qu'elle est la valeur de l'URL récupérée
+  // Mettre des images docker dans le docker compose de production et pas des contextes
+  // Faire un merge avec la branche develop et adapter les contenus si possible
+  // Suite
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));

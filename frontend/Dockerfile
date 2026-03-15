@@ -22,4 +22,4 @@ FROM nginx:latest as prod
 
 COPY --from=build /frontend/dist /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 8000
