@@ -6,6 +6,8 @@ COPY package.json .
 
 COPY . .
 
+RUN apk add --no-cache curl
+
 RUN npm i
 
 CMD ["npm", "run", "dev"]

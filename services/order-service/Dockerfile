@@ -1,4 +1,4 @@
-FROM node:25-bookworm
+FROM node:25-alpine
 
 WORKDIR /order-service
 
