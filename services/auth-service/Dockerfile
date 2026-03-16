@@ -8,7 +8,9 @@ COPY . .
 
 FROM base as dev
 
-RUN npm i
+RUN rm -r tests && rm jest.config.js .env.production && npm i
+
+# RUN npm i
 
 CMD ["npm", "run", "dev"]
 
@@ -16,7 +18,9 @@ EXPOSE 3001
 
 FROM base as prod
 
-RUN npm i --omit=dev
+RUN rm -r tests && rm jest.config.js .env.dev && npm i --omit=dev
+
+# RUN npm i --omit=dev
 
 CMD ["npm", "run", "start"]
 

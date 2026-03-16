@@ -10,6 +10,8 @@ RUN npm i
 
 FROM base as dev
 
+RUN rm -r /frontend/tests && rm vitest.config.js .env.production
+
 CMD ["npm", "run", "dev"]
 
 EXPOSE 8080

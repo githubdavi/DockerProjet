@@ -1,2 +1,8 @@
 node_modules
 .dockerignore
+.env
+.eslintrc
+.gitgnore
+build-product.yml
+Dockerfile
+package-lock.json

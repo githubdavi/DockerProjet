@@ -1,2 +1,10 @@
 node_modules
 .dockerignore
+.env
+.eslintrc
+.gitgnore
+build-front.yml
+Dockerfile
+README.md
+package-lock.json
+.vscode

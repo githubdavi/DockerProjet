@@ -1,2 +1,8 @@
 node_modules
 .dockerignore
+.env
+.gitignore
+build-auth.yml
+Dockerfile
+libssl*.*
+package-lock.json
