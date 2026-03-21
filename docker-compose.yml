@@ -17,8 +17,13 @@ services:
       target: dev
     user: 1500:1500
     env_file: ./frontend/.env.dev
+    environment:
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - 8080:8080
+    volumes:
+      - ./frontend/src:/frontend/src
+      - frontend_node_modules:/frontend/node_modules
 
   auth-service:
     container_name: auth-service
@@ -27,8 +32,13 @@ services:
       target: dev
     user: 1501:1501
     env_file: ./services/auth-service/.env.dev
+    environment:
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - 3001:3001
+    volumes:
+      - ./services/auth-service/src:/auth-service/src
+      - auth_node_modules:/auth-service/node_modules
     depends_on:
       database:
         condition: service_healthy
@@ -40,8 +50,13 @@ services:
       target: dev
     user: 1503:1503
     env_file: ./services/product-service/.env.dev
+    environment:
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - 3000:3000
+    volumes:
+      - ./services/product-service/src:/product-service/src
+      - product_node_modules:/product-service/node_modules
     depends_on:
       database:
         condition: service_healthy
@@ -58,8 +73,13 @@ services:
       target: dev
     user: 1502:1502
     env_file: ./services/order-service/.env.dev
+    environment:
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - 3002:3002
+    volumes:
+      - ./services/order-service/src:/order-service/src
+      - order_node_modules:/order-service/node_modules
     depends_on:
       product-service:
         condition: service_healthy
@@ -75,3 +95,9 @@ services:
     depends_on:
       product-service:
         condition: service_healthy
+
+volumes:
+  frontend_node_modules:
+  auth_node_modules:
+  product_node_modules:
+  order_node_modules:

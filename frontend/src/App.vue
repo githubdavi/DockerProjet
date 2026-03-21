@@ -86,16 +86,13 @@ export default {
 
         console.log("Adding to cart:", product); // Debug log
 
-        await cartService.addToCart(
-            product._id,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              userId: userId,
-              "Content-Type": "application/json",
-            },
+        await cartService.addToCart(product._id, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            userId: userId,
+            "Content-Type": "application/json",
           },
-        );
+        });
 
         // Recharger le panier après l'ajout
         await loadCart();

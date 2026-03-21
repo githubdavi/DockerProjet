@@ -6,3 +6,4 @@ build-auth.yml
 Dockerfile
 libssl*.*
 package-lock.json
+coverage
