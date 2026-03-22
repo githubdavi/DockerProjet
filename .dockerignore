@@ -14,4 +14,8 @@
 **/\*.yml
 **/\*.md
 **/.eslintrc
-\*\*/server.cjs \*_/libssl_.\*
+\*\*/server.cjs
+\*\*/libssl\*.\*
+.env.development
+./scripts
+!./scripts/run-tests.sh
