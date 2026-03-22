@@ -1,0 +1,11 @@
+FROM debian:12.13-slim
+
+# RUN apt -y update && apt -y install docker node git mongo
+
+COPY . .
+
+RUN sed -i 's/\r$//' ./scripts/run-tests.sh
+
+RUN apt update -y && apt install nodejs npm -y 
+
+CMD ["bash", "./scripts/run-tests.sh"]
