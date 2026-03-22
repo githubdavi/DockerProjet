@@ -5,6 +5,8 @@ services:
     image: mongo
     ports:
       - 27017:27017
+    networks:
+      - e-commerce-network
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 5s
@@ -24,6 +26,8 @@ services:
     volumes:
       - ./frontend/src:/frontend/src
       - frontend_node_modules:/frontend/node_modules
+    networks:
+      - e-commerce-network
 
   auth-service:
     container_name: auth-service
@@ -39,6 +43,8 @@ services:
     volumes:
       - ./services/auth-service/src:/auth-service/src
       - auth_node_modules:/auth-service/node_modules
+    networks:
+      - e-commerce-network
     depends_on:
       database:
         condition: service_healthy
@@ -57,6 +63,8 @@ services:
     volumes:
       - ./services/product-service/src:/product-service/src
       - product_node_modules:/product-service/node_modules
+    networks:
+      - e-commerce-network
     depends_on:
       database:
         condition: service_healthy
@@ -80,6 +88,8 @@ services:
     volumes:
       - ./services/order-service/src:/order-service/src
       - order_node_modules:/order-service/node_modules
+    networks:
+      - e-commerce-network
     depends_on:
       product-service:
         condition: service_healthy
@@ -92,9 +102,15 @@ services:
     env_file: ./.env.development
     ports:
       - 3004:3004
+    networks:
+      - e-commerce-network
     depends_on:
       product-service:
         condition: service_healthy
+
+networks:
+  e-commerce-network:
+    driver: bridge
 
 volumes:
   frontend_node_modules:
