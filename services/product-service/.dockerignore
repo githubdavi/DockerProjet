@@ -2,8 +2,12 @@ node_modules
 .dockerignore
 .env
 .eslintrc.cjs
-.gitIgnore
+.gitignore
 build-product.yml
 Dockerfile
 package-lock.json
 coverage
+tests
+jest.config.js
+jest-mongodb-config.js
+junit.xml

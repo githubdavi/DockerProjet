@@ -8,4 +8,6 @@ Dockerfile
 README.md
 package-lock.json
 .vscode
+.git
 coverage
+tests-results

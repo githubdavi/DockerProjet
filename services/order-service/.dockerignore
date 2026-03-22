@@ -7,3 +7,5 @@ Dockerfile
 package-lock.json
 backup
 coverage
+tests
+jest.config.js

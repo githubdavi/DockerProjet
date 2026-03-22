@@ -1,11 +1,11 @@
-FROM debian:12.13-slim
+FROM node:18-bullseye
 
-# RUN apt -y update && apt -y install docker node git mongo
+WORKDIR /app
 
 COPY . .
 
 RUN sed -i 's/\r$//' ./scripts/run-tests.sh
 
-RUN apt update -y && apt install nodejs npm -y 
+RUN apt-get update -y && apt-get install libcurl4 -y
 
 CMD ["bash", "./scripts/run-tests.sh"]
