@@ -6,6 +6,6 @@ COPY . .
 
 RUN sed -i 's/\r$//' ./scripts/run-tests.sh
 
-RUN apt update -y && apt install nodejs -y
+RUN apt update -y && apt install nodejs npm -y 
 
 CMD ["bash", "./scripts/run-tests.sh"]
