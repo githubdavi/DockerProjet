@@ -17,9 +17,10 @@
       <div v-if="!isAuthenticated" class="auth-container">
         <AuthTest @login-success="handleLoginSuccess" />
       </div>
-      
+
       <!-- Afficher le contenu principal si authentifié -->
-      <router-view v-else
+      <router-view
+        v-else
         :key="$route.fullPath"
         :products="products"
         :cart-items="cartItems"
@@ -32,147 +33,137 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
-import { useRouter } from 'vue-router'
-import AuthTest from './components/AuthTest.vue'
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
+import AuthTest from "./components/AuthTest.vue";
+import { productService } from "./services/productService";
+import { cartService } from "./services/cartService";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    AuthTest
+    AuthTest,
   },
   setup() {
-    const router = useRouter()
-    const products = ref([])
-    const cartItems = ref([])
-    const cartCount = ref(0)
-    const isAuthenticated = ref(false)
+    const router = useRouter();
+    const products = ref([]);
+    const cartItems = ref([]);
+    const cartCount = ref(0);
+    const isAuthenticated = ref(false);
 
     // Charger les produits depuis l'API
     const loadProducts = async () => {
       try {
-        const token = localStorage.getItem('token')
-        const response = await axios.get('/api/products', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-        products.value = response.data
+        const token = localStorage.getItem("token");
+        const response = await productService.getProducts();
+        products.value = response;
       } catch (error) {
-        console.error('Erreur chargement produits:', error)
+        console.error("Erreur chargement produits:", error);
       }
-    }
+    };
 
     // Charger le panier depuis l'API
     const loadCart = async () => {
       try {
-        const token = localStorage.getItem('token')
-        const userId = localStorage.getItem('userId')
-        if (!token || !userId) return
+        const token = localStorage.getItem("token");
+        const userId = localStorage.getItem("userId");
+        if (!token || !userId) return;
 
-        const response = await axios.get('/api/cart', {
-          headers: { 
-            Authorization: `Bearer ${token}`,
-            userId: userId
-          }
-        })
-        cartItems.value = response.data.items
-        cartCount.value = cartItems.value.length
+        const response = await cartService.getCart();
+        cartItems.value = response.items;
+        cartCount.value = cartItems.value.length;
       } catch (error) {
-        console.error('Erreur chargement panier:', error)
+        console.error("Erreur chargement panier:", error);
       }
-    }
+    };
 
     // Ajouter au panier
     const addToCart = async (product) => {
       try {
-    const token = localStorage.getItem('token')
-    const userId = localStorage.getItem('userId')
-    
-    console.log('Adding to cart:', product); // Debug log
+        const token = localStorage.getItem("token");
+        const userId = localStorage.getItem("userId");
 
-    await axios.post('/api/cart/add', {
-      userId,
-      productId: product._id
-    }, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        userId: userId,
-        'Content-Type': 'application/json'
+        console.log("Adding to cart:", product); // Debug log
+
+        await cartService.addToCart(product._id, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            userId: userId,
+            "Content-Type": "application/json",
+          },
+        });
+
+        // Recharger le panier après l'ajout
+        await loadCart();
+      } catch (error) {
+        console.error("Erreur ajout au panier:", error);
       }
-    });
-    
-    // Recharger le panier après l'ajout
-    await loadCart();
-  } catch (error) {
-    console.error('Erreur ajout au panier:', error)
-  }
-}
+    };
     // Supprimer du panier
     const removeFromCart = async (productId) => {
       try {
-        const token = localStorage.getItem('token')
-        const userId = localStorage.getItem('userId')
-        await axios.delete(`/api/cart/remove/${productId}`, {
-          headers: { 
+        const token = localStorage.getItem("token");
+        const userId = localStorage.getItem("userId");
+        await cartService.removeFromCart(productId, {
+          headers: {
             Authorization: `Bearer ${token}`,
-            userId: userId
-          }
-        })
-        await loadCart()
+            userId: userId,
+          },
+        });
+        await loadCart();
       } catch (error) {
-        console.error('Erreur suppression du panier:', error)
+        console.error("Erreur suppression du panier:", error);
       }
-    }
+    };
 
     // Gérer le nettoyage du panier après une commande
     const handleCartCleared = async () => {
-      cartItems.value = []
-      cartCount.value = 0
-      await loadCart() // Recharger le panier depuis le serveur
-    }
+      cartItems.value = [];
+      cartCount.value = 0;
+      await loadCart(); // Recharger le panier depuis le serveur
+    };
 
     // Gérer la connexion réussie
     const handleLoginSuccess = () => {
-      isAuthenticated.value = true
-      loadProducts()
-      loadCart()
-      router.push('/')
-    }
+      isAuthenticated.value = true;
+      loadProducts();
+      loadCart();
+      router.push("/");
+    };
 
     // Gérer la déconnexion
     const logout = () => {
-      localStorage.removeItem('token')
-      localStorage.removeItem('userId')
-      isAuthenticated.value = false
-      cartItems.value = []
-      cartCount.value = 0
-      router.push('/')
-    }
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      isAuthenticated.value = false;
+      cartItems.value = [];
+      cartCount.value = 0;
+      router.push("/");
+    };
 
     // Vérifier l'authentification au chargement
     const checkAuth = () => {
-      const token = localStorage.getItem('token')
-      const userId = localStorage.getItem('userId')
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
       if (token && userId) {
-        isAuthenticated.value = true
-        loadProducts()
-        loadCart()
+        isAuthenticated.value = true;
+        loadProducts();
+        loadCart();
       }
-    }
+    };
 
     // Recharger les produits quand on revient sur la page
     router.beforeEach((to, from, next) => {
-      if (to.path === '/' && isAuthenticated.value) {
-        loadProducts()
+      if (to.path === "/" && isAuthenticated.value) {
+        loadProducts();
       }
-      next()
-    })
+      next();
+    });
 
     onMounted(() => {
-      checkAuth()
-    })
+      checkAuth();
+    });
 
     return {
       products,
@@ -183,10 +174,10 @@ export default {
       logout,
       addToCart,
       removeFromCart,
-      handleCartCleared
-    }
-  }
-}
+      handleCartCleared,
+    };
+  },
+};
 </script>
 
 <style>

@@ -1,0 +1,11 @@
+FROM alpine:latest
+
+WORKDIR init-products/
+
+COPY ./scripts/init-products.sh ./init-products.sh
+
+RUN sed -i 's/\r$//' ./init-products.sh
+
+RUN apk add --no-cache bash curl
+
+CMD ["bash", "init-products.sh"]

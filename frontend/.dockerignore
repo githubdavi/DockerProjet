@@ -1,9 +1,11 @@
 node_modules
 .dockerignore
 .env
-.eslintrc.cjs
-.gitIgnore
-build-product.yml
+.eslintrc
+.gitgnore
+build-front.yml
 Dockerfile
+README.md
 package-lock.json
+.vscode
 coverage

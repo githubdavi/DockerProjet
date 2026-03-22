@@ -1,9 +1,9 @@
 node_modules
 .dockerignore
 .env
-.eslintrc.cjs
-.gitIgnore
-build-product.yml
+.gitignore
+build-order.yml
 Dockerfile
 package-lock.json
+backup
 coverage

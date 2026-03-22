@@ -1,0 +1,119 @@
+services:
+  database:
+    container_name: mongodb
+    user: 999:999
+    image: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - e-commerce-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+    user: 1500:1500
+    env_file: ./frontend/.env.dev
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - 8080:8080
+    volumes:
+      - ./frontend/src:/frontend/src
+      - frontend_node_modules:/frontend/node_modules
+    networks:
+      - e-commerce-network
+
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ./services/auth-service
+      target: dev
+    user: 1501:1501
+    env_file: ./services/auth-service/.env.dev
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - 3001:3001
+    volumes:
+      - ./services/auth-service/src:/auth-service/src
+      - auth_node_modules:/auth-service/node_modules
+    networks:
+      - e-commerce-network
+    depends_on:
+      database:
+        condition: service_healthy
+
+  product-service:
+    container_name: product-service
+    build:
+      context: ./services/product-service
+      target: dev
+    user: 1503:1503
+    env_file: ./services/product-service/.env.dev
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - 3000:3000
+    volumes:
+      - ./services/product-service/src:/product-service/src
+      - product_node_modules:/product-service/node_modules
+    networks:
+      - e-commerce-network
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  order-service:
+    container_name: order-service
+    build:
+      context: ./services/order-service
+      target: dev
+    user: 1502:1502
+    env_file: ./services/order-service/.env.dev
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - 3002:3002
+    volumes:
+      - ./services/order-service/src:/order-service/src
+      - order_node_modules:/order-service/node_modules
+    networks:
+      - e-commerce-network
+    depends_on:
+      product-service:
+        condition: service_healthy
+
+  init-products:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-init-products
+    user: 1504:1504
+    env_file: ./.env.development
+    ports:
+      - 3004:3004
+    networks:
+      - e-commerce-network
+    depends_on:
+      product-service:
+        condition: service_healthy
+
+networks:
+  e-commerce-network:
+    driver: bridge
+
+volumes:
+  frontend_node_modules:
+  auth_node_modules:
+  product_node_modules:
+  order_node_modules:
