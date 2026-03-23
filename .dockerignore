@@ -5,6 +5,8 @@
 **/.eslintrc.cjs
 **/.gitignore
 **/build-product.yml
+**/Dockerfile
+**/Dockerfile-\*
 **/package-lock.json
 **/coverage
 **/.github
