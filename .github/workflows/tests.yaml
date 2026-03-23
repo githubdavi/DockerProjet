@@ -11,23 +11,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: node:18-bullseye
+      env:
+        NODE_ENV: test
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.18
+        # uses: actions/setup-node@v4
+        # with:
+        #   node-version: 22.18
 
       - name: Trimming line breaks
         run: sed -i 's/\r$//' ./scripts/run-tests.sh
 
       - name: Updating apt-get and installing depencencies
         run: sudo apt-get update -y && sudo apt-get install libcurl4 -y
-
-      - name: Run ls
-        run: ls
 
       - name: Installing dependencies
         run: sudo bash ./scripts/run-tests.sh
