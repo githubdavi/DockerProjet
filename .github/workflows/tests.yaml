@@ -4,7 +4,6 @@ on:
   workflow_call:
   push:
     branches:
-      - feature/order-service
       - main
   pull_request:
     branches:
