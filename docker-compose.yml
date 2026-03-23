@@ -12,6 +12,8 @@ services:
       - 27017:27017
     networks:
       - e-commerce-network
+    volumes:
+      - mongo-data:/data/db
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 5s
@@ -139,6 +141,7 @@ networks:
     driver: bridge
 
 volumes:
+  mongo-data:
   frontend_node_modules:
   auth_node_modules:
   product_node_modules:
