@@ -14,19 +14,17 @@ USER auth-user
 
 FROM base as dev
 
-RUN chmod -R u+w tests && rm -r tests && rm jest.config.js .env.production && npm i
-
-# RUN npm i
-
-CMD ["npm", "run", "dev"]
+RUN  npm i &&rm .env.production
 
 EXPOSE 3001
 
+CMD ["npm", "run", "dev"]
+
 FROM base as prod
 
-RUN chmod -R u+w tests && rm -r tests && rm jest.config.js .env.dev && npm i --omit=dev
+RUN  npm i --omit=dev && rm .env.dev
 
-# RUN npm i --omit=dev
+EXPOSE 3001
 
 CMD ["npm", "run", "start"]
 

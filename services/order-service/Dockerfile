@@ -14,20 +14,16 @@ USER order-user
 
 FROM base as dev
 
-RUN chmod -R u+w tests && rm -r tests && rm jest.config.js .env.production && npm i
+RUN  npm i && rm .env.production
 
-# RUN npm i
+EXPOSE 3002
 
 CMD ["npm", "run", "dev"]
 
-EXPOSE 3002
-
 FROM base as prod
 
-RUN chmod -R u+w tests && rm -r tests && rm jest.config.js .env.dev && npm i --omit=dev
-
-# RUN npm i --omit=dev
-
-CMD ["npm", "run", "start"]
+RUN  npm i --omit=dev && rm .env.dev
 
 EXPOSE 3002
+
+CMD ["npm", "run", "start"]

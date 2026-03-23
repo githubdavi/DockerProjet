@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="3" failures="3" errors="0" time="176.687">
-  <testsuite name="Product API" errors="0" failures="3" skipped="0" timestamp="2026-03-21T11:23:17" time="176.587" tests="3">
-    <testcase classname="Product API POST /api/products should create a new product" name="Product API POST /api/products should create a new product" time="0.003">
+<testsuites name="jest tests" tests="3" failures="0" errors="0" time="16.843">
+  <testsuite name="Product API" errors="0" failures="0" skipped="0" timestamp="2026-03-22T21:00:14" time="16.241" tests="3">
+    <testcase classname="Product API POST /api/products should create a new product" name="Product API POST /api/products should create a new product" time="0.478">
     </testcase>
-    <testcase classname="Product API GET /api/products should return all products" name="Product API GET /api/products should return all products" time="0.001">
+    <testcase classname="Product API GET /api/products should return all products" name="Product API GET /api/products should return all products" time="0.161">
     </testcase>
-    <testcase classname="Product API GET /api/products/:id should return a product by id" name="Product API GET /api/products/:id should return a product by id" time="0">
+    <testcase classname="Product API GET /api/products/:id should return a product by id" name="Product API GET /api/products/:id should return a product by id" time="0.122">
     </testcase>
   </testsuite>
 </testsuites>

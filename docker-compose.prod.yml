@@ -1,33 +1,30 @@
 services:
-
   frontend:
+    image: ghcr.io/githubdavi/e-commerce-frontend:v1.0.1
     build:
-    #   context: ./frontend
       target: prod
     env_file: ./frontend/.env.production
     ports:
       - 8000:80
 
   auth-service:
+    image: ghcr.io/githubdavi/e-commerce-auth-service:v1.0.1
     build:
-    #   context: ./services/auth-service
       target: prod
     env_file: ./services/auth-service/.env.production
-  
-  product-service:   
+
+  product-service:
+    image: ghcr.io/githubdavi/e-commerce-product-service:v1.0.1
     build:
-    #   context: ./services/product-service
       target: prod
     env_file: ./services/product-service/.env.production
 
   order-service:
+    image: ghcr.io/githubdavi/e-commerce-order-service:v1.0.1
     build:
-    #   context: ./services/order-service
       target: prod
     env_file: ./services/order-service/.env.production
 
   init-products:
-    # build:
-    #   context: .
-    #   dockerfile: ./Dockerfile-init-products
+    image: ghcr.io/githubdavi/e-commerce-init-products:v1.0.1
     env_file: ./.env.production

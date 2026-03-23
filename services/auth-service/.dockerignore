@@ -7,3 +7,5 @@ Dockerfile
 libssl*.*
 package-lock.json
 coverage
+tests
+jest.config.js

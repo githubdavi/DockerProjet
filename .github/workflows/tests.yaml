@@ -1,0 +1,30 @@
+name: E-Commerce Application Tests
+
+on:
+  workflow_call:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-bullseye
+      env:
+        NODE_ENV: test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Trimming line breaks
+        run: sed -i 's/\r$//' ./scripts/run-tests.sh
+
+      - name: Updating apt-get and installing depencencies
+        run: apt-get update -y && apt-get install libcurl4 -y
+
+      - name: Installing dependencies
+        run: bash ./scripts/run-tests.sh
