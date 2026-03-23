@@ -30,4 +30,4 @@ jobs:
         run: ls
 
       - name: Installing dependencies
-        run: sudo ./scripts/run-tests.sh
+        run: sudo bash ./scripts/run-tests.sh
