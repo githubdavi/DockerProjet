@@ -5,8 +5,6 @@
 **/.eslintrc.cjs
 **/.gitignore
 **/build-product.yml
-**/Dockerfile
-**/Dockerfile-\*
 **/package-lock.json
 **/coverage
 **/.github
@@ -17,5 +15,3 @@
 \*\*/server.cjs
 \*\*/libssl\*.\*
 .env.development
-./scripts
-!./scripts/run-tests.sh
