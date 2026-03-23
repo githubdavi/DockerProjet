@@ -8,4 +8,6 @@ RUN sed -i 's/\r$//' ./init-products.sh
 
 RUN apk add --no-cache bash curl
 
+EXPOSE 3004
+
 CMD ["bash", "init-products.sh"]

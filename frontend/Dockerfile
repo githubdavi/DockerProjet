@@ -18,9 +18,9 @@ FROM base as dev
 
 RUN rm -r /frontend/tests && rm vitest.config.js .env.production
 
-CMD ["npm", "run", "dev"]
-
 EXPOSE 8080
+
+CMD ["npm", "run", "dev"]
 
 FROM base as build
 
@@ -33,10 +33,6 @@ RUN addgroup -g 1500 frontend-group && adduser -D -u 1500 -G frontend-group fron
 RUN chown -R frontend-user:frontend-group /var/cache/nginx \
     && chown -R frontend-user:frontend-group /run \
     && chown -R frontend-user:frontend-group /usr/share/nginx/html
-
-# EXPOSE 8080
-
-# RUN sed -i 's/listen       80;/listen       8080;/g' /etc/nginx/conf.d/default.conf
 
 USER frontend-user
 
