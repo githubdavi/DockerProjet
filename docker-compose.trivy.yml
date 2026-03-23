@@ -1,6 +1,6 @@
 services:
   trivy:
-    image: aquasec/trivy:latest
+    image: aquasec/trivy:0.69.3
     container_name: trivy-scanner
     entrypoint: [""]
     volumes:
