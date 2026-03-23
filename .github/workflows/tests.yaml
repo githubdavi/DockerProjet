@@ -9,7 +9,7 @@ on:
     main:
 
 jobs:
-  build-debs:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,6 +25,9 @@ jobs:
 
       - name: Updating apt-get and installing depencencies
         run: sudo apt-get update -y && sudo apt-get install libcurl4 -y
+
+      - name: Run ls
+        run: ls
 
       - name: Installing dependencies
         run: sudo ./scripts/run-tests.sh
