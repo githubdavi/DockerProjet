@@ -1,0 +1,30 @@
+name: E-Commerce Application tests
+
+on:
+  workflow_call:
+  push:
+    - feature/order-service
+    - main
+  pull_request:
+    - main
+
+jobs:
+  build-debs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.18
+
+      - name: Trimming line breaks
+        run: sed -i 's/\r$//' ./scripts/run-tests.sh
+
+      - name: Updating apt-get and installing depencencies
+        run: apt-get update -y && apt-get install libcurl4 -y
+
+      - name: Installing dependencies
+        run: ./scripts/run-tests.sh
