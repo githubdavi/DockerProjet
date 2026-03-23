@@ -30,9 +30,9 @@ Les rapports sont generes dans le dossier trivy-reports.
 Pour lancer le scan de trivy il faut d'abord avoir construit les images docker (docker-compose up -d --build).
 
 Puis lancer le scan avec:
-docker compose -f docker-compose.trivy.yml up --abort-on-container-exit
+`docker compose -f docker-compose.trivy.yml up --abort-on-container-exit`
 
 ### Logs:
 
 Afin d'avoir les logs de tous les services il faut lancer la commande, le rapport est sauvegarder dans le dossier logs:
-bash ./scripts/get-log.sh
+`bash ./scripts/get-log.sh`
