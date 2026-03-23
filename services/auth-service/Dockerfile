@@ -22,7 +22,7 @@ EXPOSE 3001
 
 FROM base as prod
 
-RUN  npm i --omit=dev && .env.dev
+RUN  npm i --omit=dev && rm .env.dev
 
 CMD ["npm", "run", "start"]
 
