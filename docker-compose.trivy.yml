@@ -1,0 +1,24 @@
+services:
+  trivy:
+    image: aquasec/trivy:latest
+    container_name: trivy-scanner
+    entrypoint: [""]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./trivy-reports:/reports
+    command: >
+      sh -c "
+        echo 'Scanning mongo...' &&
+        trivy image --severity HIGH,CRITICAL --ignore-unfixed --format table --output /reports/mongo.txt mongo &&
+
+        echo 'Scanning auth-service...' &&
+        trivy image --severity HIGH,CRITICAL --ignore-unfixed --format table --output /reports/auth-service.txt e-commerce-vue-main-auth-service &&
+
+        echo 'Scanning product-service...' &&
+        trivy image --severity HIGH,CRITICAL --ignore-unfixed --format table --output /reports/product-service.txt e-commerce-vue-main-product-service &&
+
+        echo 'Scanning order-service...' &&
+        trivy image --severity HIGH,CRITICAL --ignore-unfixed --format table --output /reports/order-service.txt e-commerce-vue-main-order-service &&
+
+        echo 'Rapports générés dans ./trivy-reports/'
+      "
