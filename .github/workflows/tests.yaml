@@ -28,7 +28,7 @@ jobs:
         run: sed -i 's/\r$//' ./scripts/run-tests.sh
 
       - name: Updating apt-get and installing depencencies
-        run: sudo apt-get update -y && sudo apt-get install libcurl4 -y
+        run: apt-get update -y && apt-get install libcurl4 -y
 
       - name: Installing dependencies
-        run: sudo bash ./scripts/run-tests.sh
+        run: bash ./scripts/run-tests.sh
