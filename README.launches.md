@@ -11,7 +11,7 @@
 ### Tests:
 
 - Exécutez la commande `docker build -t tests -f Dockerfile-tests .` en premier lieu
-- Exécutez la commande `docker run --name tests -p 5050:5050 tests` en second lieu
+- Exécutez la commande `docker run --rm --name tests -p 5050:5050 tests` en second lieu
 
 ### Trivy:
 
