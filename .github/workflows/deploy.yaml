@@ -28,7 +28,7 @@ jobs:
           context: ./frontend
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/e-commerce-frontend:v1.0.${{steps.vars.outputs.tag}}
+            ghcr.io/${{ github.actor }}/e-commerce-frontend:v1.0.1
             ghcr.io/${{ github.actor }}/e-commerce-frontend:v1
             ghcr.io/${{ github.actor }}/e-commerce-frontend:v1.0
             ghcr.io/${{ github.actor }}/e-commerce-frontend:latest
@@ -39,7 +39,7 @@ jobs:
           context: ./services/auth-service
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/e-commerce-auth-service:v1.0.${{steps.vars.outputs.tag}}
+            ghcr.io/${{ github.actor }}/e-commerce-auth-service:v1.0.1
             ghcr.io/${{ github.actor }}/e-commerce-auth-service:v1
             ghcr.io/${{ github.actor }}/e-commerce-auth-service:v1.0
             ghcr.io/${{ github.actor }}/e-commerce-auth-service:latest
@@ -50,7 +50,7 @@ jobs:
           context: ./services/product-service
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/e-commerce-product-service:v1.0.${{steps.vars.outputs.tag}}
+            ghcr.io/${{ github.actor }}/e-commerce-product-service:v1.0.1
             ghcr.io/${{ github.actor }}/e-commerce-product-service:v1
             ghcr.io/${{ github.actor }}/e-commerce-product-service:v1.0
             ghcr.io/${{ github.actor }}/e-commerce-product-service:latest
@@ -61,7 +61,7 @@ jobs:
           context: ./services/order-service
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/e-commerce-order-service:v1.0.${{steps.vars.outputs.tag}}
+            ghcr.io/${{ github.actor }}/e-commerce-order-service:v1.0.1
             ghcr.io/${{ github.actor }}/e-commerce-order-service:v1
             ghcr.io/${{ github.actor }}/e-commerce-order-service:v1.0
             ghcr.io/${{ github.actor }}/e-commerce-order-service:latest
@@ -73,7 +73,7 @@ jobs:
           dockerfile: Dockerfile-init-products
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/e-commerce-init-products:v1.0.${{steps.vars.outputs.tag}}
+            ghcr.io/${{ github.actor }}/e-commerce-init-products:v1.0.1
             ghcr.io/${{ github.actor }}/e-commerce-init-products:v1
             ghcr.io/${{ github.actor }}/e-commerce-init-products:v1.0
             ghcr.io/${{ github.actor }}/e-commerce-init-products:latest
