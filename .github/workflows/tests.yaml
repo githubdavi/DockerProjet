@@ -3,10 +3,10 @@ name: E-Commerce Application tests
 on:
   workflow_call:
   push:
-    - feature/order-service
-    - main
+    feature/order-service:
+    main:
   pull_request:
-    - main
+    main:
 
 jobs:
   build-debs:
