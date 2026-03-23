@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-FROM node:20 AS builder
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-COPY . .
-
-RUN npm run build
-
-FROM nginx:alpine
-
-COPY --from=builder /app/dist /usr/share/nginx/html
-EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
-=======
 FROM node:20-alpine as base
 
 RUN addgroup -g 1500 frontend-group && adduser -D -u 1500 -G frontend-group frontend-user
@@ -59,4 +43,3 @@ USER frontend-user
 COPY --from=build /frontend/dist /usr/share/nginx/html
 
 EXPOSE 8000
->>>>>>> feature/order-service
