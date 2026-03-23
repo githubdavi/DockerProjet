@@ -1,15 +1,17 @@
-name: E-Commerce Application tests
+name: E-Commerce Application Tests
 
 on:
   workflow_call:
   push:
-    feature/order-service:
-    main:
+    branches:
+      - feature/order-service
+      - main
   pull_request:
-    main:
+    branches:
+      - main
 
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
     container:
       image: node:18-bullseye
@@ -18,11 +20,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      # - name: Set up Node
-      # uses: actions/setup-node@v4
-      # with:
-      #   node-version: 22.18
 
       - name: Trimming line breaks
         run: sed -i 's/\r$//' ./scripts/run-tests.sh

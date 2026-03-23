@@ -1,0 +1,75 @@
+name: E-Commerce Application Deployment
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Log in to the registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./frontend
+          push: true
+          tags: |
+            ghcr.io/${{ github.actor }}/e-commerce-frontend:v1.0.${{steps.vars.outputs.tag}}
+            ghcr.io/${{ github.actor }}/e-commerce-frontend:v1
+            ghcr.io/${{ github.actor }}/e-commerce-frontend:v1.0
+            ghcr.io/${{ github.actor }}/e-commerce-frontend:latest
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./services/auth-service
+          push: true
+          tags: |
+            ghcr.io/${{ github.actor }}/e-commerce-auth-service:v1.0.${{steps.vars.outputs.tag}}
+            ghcr.io/${{ github.actor }}/e-commerce-auth-service:v1
+            ghcr.io/${{ github.actor }}/e-commerce-auth-service:v1.0
+            ghcr.io/${{ github.actor }}/e-commerce-auth-service:latest
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./services/product-service
+          push: true
+          tags: |
+            ghcr.io/${{ github.actor }}/e-commerce-product-service:v1.0.${{steps.vars.outputs.tag}}
+            ghcr.io/${{ github.actor }}/e-commerce-product-service:v1
+            ghcr.io/${{ github.actor }}/e-commerce-product-service:v1.0
+            ghcr.io/${{ github.actor }}/e-commerce-product-service:latest
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./services/order-service
+          push: true
+          tags: |
+            ghcr.io/${{ github.actor }}/e-commerce-order-service:v1.0.${{steps.vars.outputs.tag}}
+            ghcr.io/${{ github.actor }}/e-commerce-order-service:v1
+            ghcr.io/${{ github.actor }}/e-commerce-order-service:v1.0
+            ghcr.io/${{ github.actor }}/e-commerce-order-service:latest
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          dockerfile: Dockerfile-init-products
+          push: true
+          tags: |
+            ghcr.io/${{ github.actor }}/e-commerce-init-products:v1.0.${{steps.vars.outputs.tag}}
+            ghcr.io/${{ github.actor }}/e-commerce-init-products:v1
+            ghcr.io/${{ github.actor }}/e-commerce-init-products:v1.0
+            ghcr.io/${{ github.actor }}/e-commerce-init-products:latest
