@@ -16,14 +16,14 @@ FROM base as dev
 
 RUN  npm i && rm .env.production
 
-CMD ["npm", "run", "dev"]
-
 EXPOSE 3002
+
+CMD ["npm", "run", "dev"]
 
 FROM base as prod
 
 RUN  npm i --omit=dev && rm .env.dev
 
-CMD ["npm", "run", "start"]
-
 EXPOSE 3002
+
+CMD ["npm", "run", "start"]
