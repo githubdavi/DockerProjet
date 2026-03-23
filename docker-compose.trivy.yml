@@ -12,13 +12,13 @@ services:
         trivy image --severity HIGH,CRITICAL --ignore-unfixed --format table --output /reports/mongo.txt mongo &&
 
         echo 'Scanning auth-service...' &&
-        trivy image --severity HIGH,CRITICAL --ignore-unfixed --format table --output /reports/auth-service.txt e-commerce-vue-main-auth-service &&
+        trivy image --severity HIGH,CRITICAL --ignore-unfixed --format table --output /reports/auth-service.txt dockerprojet-auth-service &&
 
         echo 'Scanning product-service...' &&
-        trivy image --severity HIGH,CRITICAL --ignore-unfixed --format table --output /reports/product-service.txt e-commerce-vue-main-product-service &&
+        trivy image --severity HIGH,CRITICAL --ignore-unfixed --format table --output /reports/product-service.txt dockerprojet-product-service &&
 
         echo 'Scanning order-service...' &&
-        trivy image --severity HIGH,CRITICAL --ignore-unfixed --format table --output /reports/order-service.txt e-commerce-vue-main-order-service &&
+        trivy image --severity HIGH,CRITICAL --ignore-unfixed --format table --output /reports/order-service.txt dockerprojet-order-service &&
 
         echo 'Rapports générés dans ./trivy-reports/'
       "
