@@ -1,5 +1,7 @@
 FROM node:18-bullseye
 
+RUN addgroup -g 1505 tests-group && adduser -D -u 1505 -G tests-group tests-user
+
 WORKDIR /app
 
 COPY . .
@@ -7,5 +9,9 @@ COPY . .
 RUN sed -i 's/\r$//' ./scripts/run-tests.sh
 
 RUN apt-get update -y && apt-get install libcurl4 -y
+
+RUN chown -R tests-user:tests-group /app
+
+USER tests-user
 
 CMD ["bash", "./scripts/run-tests.sh"]

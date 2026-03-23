@@ -6,17 +6,17 @@ WORKDIR /frontend
 
 COPY package.json .
 
+RUN npm i
+
 COPY . .
 
 RUN chown -R frontend-user:frontend-group /frontend
 
 USER frontend-user
 
-RUN npm i && chmod -R u+w tests
-
 FROM base as dev
 
-RUN rm -r /frontend/tests && rm vitest.config.js .env.production
+RUN rm .env.production
 
 CMD ["npm", "run", "dev"]
 
@@ -34,12 +34,12 @@ RUN chown -R frontend-user:frontend-group /var/cache/nginx \
     && chown -R frontend-user:frontend-group /run \
     && chown -R frontend-user:frontend-group /usr/share/nginx/html
 
-# EXPOSE 8080
-
-# RUN sed -i 's/listen       80;/listen       8080;/g' /etc/nginx/conf.d/default.conf
+RUN sed -i 's/\blisten       80\b/listen       8000/g' /etc/nginx/conf.d/default.conf
 
 USER frontend-user
 
 COPY --from=build /frontend/dist /usr/share/nginx/html
 
 EXPOSE 8000
+
+ENTRYPOINT ["nginx","-g","daemon off;"]

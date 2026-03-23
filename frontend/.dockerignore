@@ -11,3 +11,5 @@ package-lock.json
 .git
 coverage
 tests-results
+tests
+vitest.config.js
